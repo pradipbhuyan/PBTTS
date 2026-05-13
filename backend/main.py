@@ -1,5 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+
+
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
@@ -23,14 +25,21 @@ ALLOWED_ORIGINS = [
     "https://*.onrender.com",         # Allow Render backends
 ]
 
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5000",
+        "https://pbtts.vercel.app",
+        "https://pbtls.vercel.app",
+        "https://*.vercel.app",
+        "https://*.onrender.com",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
-
 
 # Create storage directory
 MP3_STORAGE = "converted_mp3s"
