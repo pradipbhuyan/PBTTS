@@ -14,11 +14,13 @@ load_dotenv()
 
 app = FastAPI(title="TTS Converter API", version="1.0.0")
 
-# CORS - allow frontend domains
+# CORS configuration - Allow all origins for testing (temporary)
 ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://your-frontend.vercel.app",  # Update after Vercel deploy
-    "https://your-frontend.onrender.com",  # If using Render for frontend
+    "http://localhost:5000",
+    "https://*.vercel.app",           # Allow all Vercel deployments
+    "https://pbtts.vercel.app",       # Your specific frontend URL
+    "https://*.onrender.com",         # Allow Render backends
 ]
 
 app.add_middleware(
@@ -28,6 +30,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Create storage directory
 MP3_STORAGE = "converted_mp3s"
